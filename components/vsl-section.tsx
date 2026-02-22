@@ -40,7 +40,8 @@ export function VSLSection() {
   const socialProof = [
     { name: "Maria S.", result: "R$ 2.300 no primeiro mês" },
     { name: "João P.", result: "Clientes em 2 semanas" },
-    { name: "Ana L.", result: "Freelancer full-time em 60 dias" }
+    { name: "Ana L.", result: "Freelancer full-time em 60 dias" },
+    { name: "Carlos M.", result: "R$ 3.500 no primeiro mês" }
   ]
 
   return (

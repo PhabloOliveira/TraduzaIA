@@ -1,12 +1,12 @@
 'use client'
 
 import Image from "next/image"
-import { Button } from "./ui/button"
-import { useFunnelStore } from '../store/useFunnelStore'
+import { FunnelCTAButton } from "./funnel-cta-button"
+import { funnelContent } from "../config/funnel-content"
 
 export function HeroSection() {
-  const { nextStep } = useFunnelStore()
-
+  const { hero } = funnelContent
+  
   return (
     <section className="relative overflow-hidden bg-primary py-20 lg:py-32">
       {/* Subtle pattern overlay */}
@@ -25,19 +25,15 @@ export function HeroSection() {
           {/* Copy */}
           <div className="flex-1 text-center lg:text-left">
             <h1 className="font-serif text-3xl font-bold leading-tight tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl text-balance">
-              {"Você gostaria de criar uma renda extra online, mas acha que tecnologia é complicada demais?"}
+              {hero.headline}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-primary-foreground/80 lg:text-xl text-pretty">
-              {"Descubra como usar Inteligência Artificial para prestar serviços digitais simples e abrir uma nova fonte de renda — mesmo começando do zero."}
+              {hero.subheadline}
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-              <Button
-                size="lg"
-                onClick={nextStep}
-                className="h-14 rounded-xl bg-accent px-8 text-base font-semibold text-accent-foreground shadow-lg transition-transform hover:scale-105 hover:bg-accent/90"
-              >
-                {"Quero Entender Como Funciona"}
-              </Button>
+              <FunnelCTAButton>
+                {hero.ctaText}
+              </FunnelCTAButton>
             </div>
           </div>
 
@@ -46,8 +42,8 @@ export function HeroSection() {
             <div className="relative">
               <div className="absolute -inset-4 rounded-3xl bg-accent/10 blur-2xl" />
               <Image
-                src="/images/ebook-mockup.jpg"
-                alt="Mockup do Guia Tradutor de IA"
+                src={hero.ebook.image}
+                alt={hero.ebook.alt}
                 width={360}
                 height={460}
                 className="relative h-auto w-full max-w-sm rounded-2xl shadow-2xl"
