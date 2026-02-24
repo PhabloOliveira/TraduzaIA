@@ -128,7 +128,7 @@ export function FunnelContainer() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="md:min-h-screen">
       <AnimatePresence mode="wait" custom={1}>
         <motion.div
           key={currentStep}

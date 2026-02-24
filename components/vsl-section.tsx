@@ -30,10 +30,9 @@ export function VSLSection() {
   }, [])
 
   const benefits = [
-    "Acesso às 50+ prompts exclusivos de IA",
+    "Acesso às 20+ prompts exclusivos de IA",
     "Método passo-a-passo comprovado",
-    "Suporte por 30 dias no grupo VIP",
-    "Bônus: Templates prontos para usar",
+    "Bônus: Acesso as ferramentas de IA para começar",
     "Garantia incondicional de 7 dias"
   ]
 
@@ -45,7 +44,7 @@ export function VSLSection() {
   ]
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-12">
+    <section className="md:min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -78,24 +77,24 @@ export function VSLSection() {
               {/* Video Placeholder */}
               <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setVideoWatched(true)}
-                    className="w-20 h-20 bg-accent rounded-full flex items-center justify-center text-accent-foreground shadow-lg"
-                  >
-                    <Play className="w-8 h-8 ml-1" />
-                  </motion.button>
-                </div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setVideoWatched(true)}
+                      className="w-16 h-16 sm:w-20 sm:h-20 bg-accent rounded-full flex items-center justify-center text-accent-foreground shadow-lg"
+                    >
+                      <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1" />
+                    </motion.button>
+                  </div>
                 
                 {/* Fake video thumbnail */}
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold text-lg mb-1">
+                <div className="absolute bottom-4 left-4 text-white max-w-[70%] sm:max-w-[50%]">
+                  <h3 className="font-semibold text-base sm:text-lg mb-1">
                     Como Transformar IA em Renda Real
                   </h3>
-                  <div className="flex items-center gap-2 text-sm opacity-80">
-                    <Clock className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm opacity-80">
+                    <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>15:30 min</span>
                   </div>
                 </div>
@@ -109,11 +108,11 @@ export function VSLSection() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + index * 0.2 }}
-                    className="flex items-center gap-3 bg-card p-3 rounded-lg border"
+                    className="flex items-center gap-3 bg-card p-2 rounded-lg border"
                   >
                     <div className="flex text-yellow-500">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current" />
+                        <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
                       ))}
                     </div>
                     <div>
@@ -209,11 +208,11 @@ export function VSLSection() {
                       >
                         <Button
                           size="lg"
-                          className="w-full h-16 text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl shadow-lg transition-all duration-200"
+                          className="w-full h-12 sm:h-16 text-base sm:text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 px-4 whitespace-normal"
                         >
-                          <Zap className="w-6 h-6 mr-3" />
-                          QUERO MEU ACESSO AGORA
-                          <ArrowRight className="w-6 h-6 ml-3" />
+                          <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
+                          <span className="text-center">QUERO MEU ACESSO AGORA</span>
+                          <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
                         </Button>
                       </motion.div>
                       
