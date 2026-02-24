@@ -15,6 +15,16 @@ import {
   Zap,
   Gift
 } from 'lucide-react'
+import Image from 'next/image'
+import {
+  type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from './ui/carousel'
+import { useCallback } from 'react'
 
 export function VSLSection() {
   const [showCTA, setShowCTA] = useState(false)
@@ -42,6 +52,40 @@ export function VSLSection() {
     { name: "Ana L.", result: "Freelancer full-time em 60 dias" },
     { name: "Carlos M.", result: "R$ 3.500 no primeiro mês" }
   ]
+
+  const testimonials = [
+    {
+      name: 'Maria S.',
+      image: '/images/maria.png',
+      quote: `Eu comprei sem muita expectativa, pra ser sincera. Já tinha tentado outras formas de ganhar renda extra e nada dava certo.
+No primeiro mês aplicando o método eu fiz R$ 2.300. Pode parecer pouco pra alguns, mas pra mim foi a primeira vez que realmente funcionou. Me deu confiança pra continuar.`
+    },
+    {
+      name: 'João P.',
+      image: 'https://images.unsplash.com/photo-1545996124-1f7f5d6c6f6d?w=800&q=80&auto=format&fit=crop',
+      quote: 'O material é direto ao ponto — comecei a faturar quando apliquei os prompts.'
+    },
+    {
+      name: 'Ana L.',
+      image: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=800&q=80&auto=format&fit=crop',
+      quote: 'Transformei minha rotina e hoje trabalho com projetos reais usando IA.'
+    }
+  ]
+
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null)
+  const [selectedTestimonial, setSelectedTestimonial] = useState(0)
+
+  useEffect(() => {
+    if (!carouselApi) return
+    const update = () => setSelectedTestimonial(carouselApi.selectedScrollSnap())
+    update()
+    carouselApi.on('select', update)
+    carouselApi.on('reInit', update)
+    return () => {
+      carouselApi.off('select', update)
+      carouselApi.off('reInit', update)
+    }
+  }, [carouselApi])
 
   return (
     <section className="md:min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-12">
@@ -180,6 +224,30 @@ export function VSLSection() {
                       <span className="text-sm leading-relaxed">{benefit}</span>
                     </motion.div>
                   ))}
+                </div>
+
+                {/* Testimonials carousel */}
+                <div className="mb-6">
+                  <h3 className="font-semibold text-lg mb-3 text-center">Depoimentos de alunos</h3>
+                  <Carousel setApi={setCarouselApi} className="max-w-full">
+                    <CarouselPrevious className="hidden sm:block" />
+                    <CarouselContent className="flex">
+                      {testimonials.map((t, i) => (
+                        <CarouselItem key={i} className="max-w-sm flex justify-center">
+                          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
+                            <Image src={t.image} alt={t.name} width={128} height={128} className="object-cover" />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselNext className="hidden sm:block" />
+                  </Carousel>
+
+                  {/* Selected testimonial text and name shown below carousel */}
+                  <div className="mt-4 text-center">
+                    <p className="text-sm text-foreground mb-2">“{testimonials[selectedTestimonial]?.quote}”</p>
+                    <span className="text-xs text-muted-foreground">— {testimonials[selectedTestimonial]?.name}</span>
+                  </div>
                 </div>
 
                 {/* CTA Button */}
