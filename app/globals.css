@@ -126,3 +126,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide Next.js / Vercel badges and dev overlays that appear in the page */
+.__next-dev-overlay-error-body,
+.__next-dev-overlay,
+[data-nextjs-scroll-focus-boundary],
+.vercel-live-feedback,
+.vercel-badge,
+[id*="vercel"],
+[class*="vercel"],
+[data-vercel],
+.__vercel,
+.__vercel_toolbar,
+[data-nextjs-portal],
+[id*="nextjs"],
+.__nextjs_original-stack-frame,
+[data-nextjs-toast],
+[data-overlay],
+button[aria-label*="Feedback"] {
+  display: none !important;
+  visibility: hidden !important;
+}
