@@ -5,13 +5,13 @@ import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Play, 
-  ArrowRight, 
-  CheckCircle, 
-  Star, 
-  Clock, 
-  Shield, 
+import {
+  Play,
+  ArrowRight,
+  CheckCircle,
+  Star,
+  Clock,
+  Shield,
   Zap,
   Gift
 } from 'lucide-react'
@@ -46,7 +46,7 @@ export function VSLSection() {
   return (
     <section className="md:min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -66,7 +66,7 @@ export function VSLSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          
+
           {/* Video Section */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -77,17 +77,17 @@ export function VSLSection() {
               {/* Video Placeholder */}
               <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setVideoWatched(true)}
-                      className="w-16 h-16 sm:w-20 sm:h-20 bg-accent rounded-full flex items-center justify-center text-accent-foreground shadow-lg"
-                    >
-                      <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1" />
-                    </motion.button>
-                  </div>
-                
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setVideoWatched(true)}
+                    className="w-16 h-16 sm:w-20 sm:h-20 bg-accent rounded-full flex items-center justify-center text-accent-foreground shadow-lg"
+                  >
+                    <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1" />
+                  </motion.button>
+                </div>
+
                 {/* Fake video thumbnail */}
                 <div className="absolute bottom-4 left-4 text-white max-w-[70%] sm:max-w-[50%]">
                   <h3 className="font-semibold text-base sm:text-lg mb-1">
@@ -134,7 +134,7 @@ export function VSLSection() {
           >
             <Card className="border-2 border-accent/20 shadow-2xl">
               <CardContent className="p-8">
-                
+
                 {/* Offer Header */}
                 <div className="text-center mb-6">
                   <Badge className="mb-3 bg-accent text-accent-foreground">
@@ -153,9 +153,9 @@ export function VSLSection() {
                 <div className="text-center mb-6">
                   <div className="flex items-center justify-center gap-2 mb-2">
                     <span className="text-2xl text-muted-foreground line-through">
-                      R$ 297
+                      R$ 197
                     </span>
-                    <Badge variant="destructive">-77%</Badge>
+                    <Badge variant="destructive">-66%</Badge>
                   </div>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-sm font-medium text-muted-foreground">por apenas</span>
@@ -192,7 +192,7 @@ export function VSLSection() {
                       className="space-y-4"
                     >
                       <motion.div
-                        animate={{ 
+                        animate={{
                           scale: [1, 1.02, 1],
                           boxShadow: [
                             "0 0 0 0 rgba(var(--accent), 0.4)",
@@ -200,7 +200,7 @@ export function VSLSection() {
                             "0 0 0 0 rgba(var(--accent), 0)"
                           ]
                         }}
-                        transition={{ 
+                        transition={{
                           duration: 2,
                           repeat: Infinity,
                           ease: "easeInOut"
@@ -215,7 +215,7 @@ export function VSLSection() {
                           <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
                         </Button>
                       </motion.div>
-                      
+
                       <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                         <Shield className="w-4 h-4" />
                         <span>Garantia incondicional de 7 dias</span>
