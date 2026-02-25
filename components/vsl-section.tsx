@@ -24,7 +24,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from './ui/carousel'
-import { useCallback } from 'react'
+// removed unused imports
 
 export function VSLSection() {
   const [showCTA, setShowCTA] = useState(false)
@@ -117,32 +117,33 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 items-start">
 
           {/* Video Section */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.55, delay: 0.15 }}
+            className="w-full"
           >
-            <div className="relative">
-              {/* Video Placeholder */}
-              <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer">
+            <div className="relative w-full">
+              {/* Video Placeholder (responsive) */}
+              <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black/80 aspect-video shadow-md sm:shadow-2xl relative group cursor-pointer">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setVideoWatched(true)}
-                    className="w-16 h-16 sm:w-20 sm:h-20 bg-accent rounded-full flex items-center justify-center text-accent-foreground shadow-lg"
+                    className="w-14 h-14 sm:w-20 sm:h-20 bg-accent rounded-full flex items-center justify-center text-accent-foreground shadow-lg"
                   >
-                    <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1" />
+                    <Play className="w-5 h-5 sm:w-8 sm:h-8" />
                   </motion.button>
                 </div>
 
-                {/* Fake video thumbnail */}
-                <div className="absolute bottom-4 left-4 text-white max-w-[70%] sm:max-w-[50%]">
-                  <h3 className="font-semibold text-base sm:text-lg mb-1">
+                {/* Fake video thumbnail text */}
+                <div className="absolute bottom-3 left-3 right-3 text-white max-w-full sm:max-w-[60%]">
+                  <h3 className="font-semibold text-sm sm:text-lg mb-1 leading-tight">
                     Como Transformar IA em Renda Real
                   </h3>
                   <div className="flex items-center gap-2 text-xs sm:text-sm opacity-80">
@@ -152,15 +153,15 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                 </div>
               </div>
 
-              {/* Social Proof Cards */}
-              <div className="mt-6 space-y-3">
+              {/* Social Proof Cards (stacked on mobile) */}
+              <div className="mt-4 space-y-3 sm:mt-6">
                 {socialProof.map((proof, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + index * 0.2 }}
-                    className="flex items-center gap-3 bg-card p-2 rounded-lg border"
+                    transition={{ delay: 0.35 + index * 0.12 }}
+                    className="flex items-center gap-3 bg-card p-3 rounded-lg border"
                   >
                     <div className="flex text-yellow-500">
                       {[...Array(5)].map((_, i) => (
@@ -168,9 +169,8 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                       ))}
                     </div>
                     <div>
-                      <p className="font-medium text-sm">
-                        {proof.name} - {proof.result}
-                      </p>
+                      <p className="font-medium text-sm">{proof.name}</p>
+                      <p className="text-xs text-muted-foreground">{proof.result}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -184,8 +184,8 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Card className="border-2 border-accent/20 shadow-2xl">
-              <CardContent className="p-8">
+            <Card className="border-2 border-accent/20 shadow-lg sm:shadow-2xl">
+              <CardContent className="p-6 sm:p-8">
 
                 {/* Offer Header */}
                 <div className="text-center mb-6">
@@ -211,7 +211,7 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                   </div>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-sm font-medium text-muted-foreground">por apenas</span>
-                    <span className="font-serif text-5xl font-bold text-accent">R$ 67</span>
+                    <span className="font-serif text-4xl sm:text-5xl font-bold text-accent">R$ 67</span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
                     Pagamento único • Acesso imediato
@@ -219,7 +219,7 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                 </div>
 
                 {/* Benefits */}
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-6">
                   {benefits.map((benefit, index) => (
                     <motion.div
                       key={index}
@@ -237,25 +237,25 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                 {/* Testimonials carousel */}
                 <div className="mb-6">
                   <h3 className="font-semibold text-lg mb-3 text-center">Depoimentos de alunos</h3>
-                  <Carousel setApi={setCarouselApi} className="max-w-full">
-                    <CarouselPrevious className="hidden sm:block" />
-                    <CarouselContent className="flex">
-                      {testimonials.map((t, i) => (
-                        <CarouselItem key={i} className="max-w-sm flex justify-center">
-                          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
-                            <Image src={t.image} alt={t.name} width={128} height={128} className="object-cover" />
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselNext className="hidden sm:block" />
-                  </Carousel>
+                    <Carousel setApi={setCarouselApi} className="max-w-full">
+                      <CarouselPrevious className="hidden sm:block" />
+                      <CarouselContent className="flex">
+                        {testimonials.map((t, i) => (
+                          <CarouselItem key={i} className="max-w-xs flex justify-center">
+                            <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden">
+                              <Image src={t.image} alt={t.name} width={128} height={128} className="object-cover" />
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselNext className="hidden sm:block" />
+                    </Carousel>
 
-                  {/* Selected testimonial text and name shown below carousel */}
-                  <div className="mt-4 text-center">
-                    <p className="text-sm text-foreground mb-2">“{testimonials[selectedTestimonial]?.quote}”</p>
-                    <span className="text-xs text-muted-foreground">— {testimonials[selectedTestimonial]?.name}</span>
-                  </div>
+                    {/* Selected testimonial text and name shown below carousel */}
+                    <div className="mt-4 text-center">
+                      <p className="text-sm sm:text-base text-foreground mb-2 max-h-44 overflow-auto leading-relaxed">“{testimonials[selectedTestimonial]?.quote}”</p>
+                      <span className="text-xs sm:text-sm text-muted-foreground">— {testimonials[selectedTestimonial]?.name}</span>
+                    </div>
                 </div>
 
                 {/* CTA Button */}
