@@ -68,11 +68,49 @@ function Carousel({
   }, [])
 
   const scrollPrev = React.useCallback(() => {
-    api?.scrollPrev()
+    if (!api) return
+    try {
+      // Prefer previousScrollSnap() when available to get correct previous index
+      // (handles cases with non-standard snap lists)
+      // @ts-ignore - some embla builds expose previousScrollSnap
+      const prevIdx = typeof api.previousScrollSnap === 'function' ? api.previousScrollSnap() : undefined
+      if (typeof prevIdx === 'number' && prevIdx >= 0) {
+        api.scrollTo(prevIdx)
+        return
+      }
+
+      const idx = api.selectedScrollSnap()
+      if (api.canScrollPrev && api.canScrollPrev()) {
+        api.scrollTo(Math.max(0, idx - 1))
+      } else {
+        api.scrollPrev()
+      }
+    } catch (e) {
+      api?.scrollPrev()
+    }
   }, [api])
 
   const scrollNext = React.useCallback(() => {
-    api?.scrollNext()
+    if (!api) return
+    try {
+      // Prefer nextScrollSnap() when available
+      // @ts-ignore
+      const nextIdx = typeof api.nextScrollSnap === 'function' ? api.nextScrollSnap() : undefined
+      if (typeof nextIdx === 'number' && nextIdx >= 0) {
+        api.scrollTo(nextIdx)
+        return
+      }
+
+      const idx = api.selectedScrollSnap()
+      const snaps = (api.scrollSnapList && api.scrollSnapList().length) || 0
+      if (typeof idx === 'number' && idx < snaps - 1) {
+        api.scrollTo(idx + 1)
+      } else {
+        api.scrollNext()
+      }
+    } catch (e) {
+      api?.scrollNext()
+    }
   }, [api])
 
   const handleKeyDown = React.useCallback(
@@ -101,6 +139,7 @@ function Carousel({
 
     return () => {
       api?.off('select', onSelect)
+      api?.off('reInit', onSelect)
     }
   }, [api, onSelect])
 
@@ -120,6 +159,10 @@ function Carousel({
     >
       <div
         onKeyDownCapture={handleKeyDown}
+        // Stop propagation in bubble phase so child target handlers (embla) run first
+        onPointerDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
         className={cn('relative', className)}
         role="region"
         aria-roledescription="carousel"

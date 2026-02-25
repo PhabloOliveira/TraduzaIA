@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Play,
   ArrowRight,
+  ArrowLeft,
   CheckCircle,
   Star,
   Clock,
@@ -96,7 +97,12 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
   }, [carouselApi])
 
   return (
-    <section className="md:min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-12">
+    <section
+      className="md:min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-12 select-text"
+      onPointerDown={(e) => e.stopPropagation()}
+      onTouchStart={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -237,24 +243,27 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                 {/* Testimonials carousel */}
                 <div className="mb-6">
                   <h3 className="font-semibold text-lg mb-3 text-center">Depoimentos de alunos</h3>
-                    <Carousel setApi={setCarouselApi} className="max-w-full">
-                      <CarouselPrevious className="hidden sm:block" />
-                      <CarouselContent className="flex">
-                        {testimonials.map((t, i) => (
-                          <CarouselItem key={i} className="max-w-xs flex justify-center">
-                            <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden">
-                              <Image src={t.image} alt={t.name} width={128} height={128} className="object-cover" />
-                            </div>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselNext className="hidden sm:block" />
-                    </Carousel>
+                    <div className="relative">
+                      <Carousel setApi={setCarouselApi} className="max-w-full">
+                        {/* show side arrows close to the carousel on mobile and further out on desktop */}
+                        <CarouselPrevious className="left-2 sm:-left-12" />
+                        <CarouselContent className="flex">
+                          {testimonials.map((t, i) => (
+                            <CarouselItem key={i} className="max-w-xs flex justify-center">
+                              <div className="w-28 h-28 sm:w-40 sm:h-40 rounded-full overflow-hidden">
+                                <Image src={t.image} alt={t.name} width={160} height={160} className="object-cover" />
+                              </div>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        <CarouselNext className="right-2 sm:-right-12" />
+                      </Carousel>
 
-                    {/* Selected testimonial text and name shown below carousel */}
-                    <div className="mt-4 text-center">
-                      <p className="text-sm sm:text-base text-foreground mb-2 max-h-44 overflow-auto leading-relaxed">“{testimonials[selectedTestimonial]?.quote}”</p>
-                      <span className="text-xs sm:text-sm text-muted-foreground">— {testimonials[selectedTestimonial]?.name}</span>
+                      {/* Selected testimonial text and name shown below carousel */}
+                      <div className="mt-4 text-center">
+                        <p className="text-sm sm:text-base text-foreground mb-2 max-h-44 overflow-auto leading-relaxed">“{testimonials[selectedTestimonial]?.quote}”</p>
+                        <span className="text-xs sm:text-sm text-muted-foreground">— {testimonials[selectedTestimonial]?.name}</span>
+                      </div>
                     </div>
                 </div>
 
