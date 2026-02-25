@@ -96,6 +96,8 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
     }
   }, [carouselApi])
 
+  // no parent drag control needed when global draggable behavior removed
+
   return (
     <section
       className="md:min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-12 select-text"

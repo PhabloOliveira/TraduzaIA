@@ -38,6 +38,7 @@ const initialState: FunnelState = {
     goals: '',
     timeAvailable: ''
   }
+  
 }
 
 export const useFunnelStore = create<FunnelState & FunnelActions>((set, get) => ({
