@@ -62,13 +62,21 @@ No primeiro mês aplicando o método eu fiz R$ 2.300. Pode parecer pouco pra alg
     },
     {
       name: 'João P.',
-      image: 'https://images.unsplash.com/photo-1545996124-1f7f5d6c6f6d?w=800&q=80&auto=format&fit=crop',
-      quote: 'O material é direto ao ponto — comecei a faturar quando apliquei os prompts.'
+      image: '/images/JoaoP.png',
+      quote: `Eu estava precisando aumentar minha renda, mas meu maior medo era investir em mais algo que não trouxesse retorno. Mesmo assim, resolvi testar. Organizei meu tempo, apliquei a estratégia ensinada e comecei a prospectar todos os dias.
+Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreendeu foi a rapidez do resultado quando você realmente executa.`
     },
     {
       name: 'Ana L.',
-      image: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=800&q=80&auto=format&fit=crop',
-      quote: 'Transformei minha rotina e hoje trabalho com projetos reais usando IA.'
+      image: '/images/AnaL.png',
+      quote: `Eu trabalhava CLT e fazia alguns freelas bem esporádicos, mas nunca tinha conseguido transformar isso em algo fixo. Quando comecei, meu objetivo era só complementar a renda. Só que seguindo o método e ajustando meu posicionamento, comecei a fechar contratos maiores.
+      Em 60 dias eu já estava ganhando o suficiente pra pedir demissão e atuar como freelancer full-time. Foi uma virada que eu não imaginava que aconteceria tão rápido.`
+    },
+    {
+      name: 'Carlos M',
+      image: '/images/Carlos.png',
+      quote: `Eu sempre tive dificuldade em vender, principalmente online. Achava que não levava jeito pra isso. Decidi encarar como um teste de 30 dias, aplicando tudo sem pular etapas.
+      No final do primeiro mês o resultado foi R$ 3.500. Além do dinheiro, o que mudou foi minha confiança — hoje eu sei que consigo gerar renda quando aplico o processo certo.`
     }
   ]
 
