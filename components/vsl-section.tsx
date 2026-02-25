@@ -294,12 +294,15 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                         }}
                       >
                         <Button
+                          asChild
                           size="lg"
                           className="w-full h-12 sm:h-16 text-base sm:text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 px-4 whitespace-normal"
                         >
-                          <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
-                          <span className="text-center">QUERO MEU ACESSO AGORA</span>
-                          <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                          <a href="https://pay.kiwify.com.br/QCOOz5u" target="_blank" rel="noopener noreferrer">
+                            <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
+                            <span className="text-center">QUERO MEU ACESSO AGORA</span>
+                            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                          </a>
                         </Button>
                       </motion.div>
 
