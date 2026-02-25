@@ -4,6 +4,7 @@ import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import { Progress } from "./ui/progress"
 import { motion } from 'framer-motion'
+const MotionCard = motion(Card)
 import { CheckCircle } from 'lucide-react'
 
 interface QuestionStepProps {
@@ -64,19 +65,22 @@ export function QuestionStep({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.1 * index }}
             >
-              <Card 
-                className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] border-2 border-transparent hover:border-accent/50"
+              <MotionCard
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                className="group cursor-pointer transition-all duration-150 border-2 border-transparent hover:border-accent/50 shadow-none"
                 onClick={() => onAnswer(option)}
               >
-                <CardContent className="p-6">
+                <CardContent className="px-4 py-4 sm:p-6">
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-medium text-card-foreground pr-4">
                       {option}
                     </span>
-                    <CheckCircle className="size-6 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <CheckCircle className="size-6 text-accent opacity-0 group-hover:opacity-100 group-focus:opacity-100 focus-within:opacity-100 active:opacity-100 transition-opacity" />
                   </div>
                 </CardContent>
-              </Card>
+              </MotionCard>
             </motion.div>
           ))}
         </motion.div>

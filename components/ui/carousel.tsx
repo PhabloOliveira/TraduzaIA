@@ -70,21 +70,7 @@ function Carousel({
   const scrollPrev = React.useCallback(() => {
     if (!api) return
     try {
-      // Prefer previousScrollSnap() when available to get correct previous index
-      // (handles cases with non-standard snap lists)
-      // @ts-ignore - some embla builds expose previousScrollSnap
-      const prevIdx = typeof api.previousScrollSnap === 'function' ? api.previousScrollSnap() : undefined
-      if (typeof prevIdx === 'number' && prevIdx >= 0) {
-        api.scrollTo(prevIdx)
-        return
-      }
-
-      const idx = api.selectedScrollSnap()
-      if (api.canScrollPrev && api.canScrollPrev()) {
-        api.scrollTo(Math.max(0, idx - 1))
-      } else {
-        api.scrollPrev()
-      }
+      api.scrollPrev()
     } catch (e) {
       api?.scrollPrev()
     }
@@ -93,21 +79,7 @@ function Carousel({
   const scrollNext = React.useCallback(() => {
     if (!api) return
     try {
-      // Prefer nextScrollSnap() when available
-      // @ts-ignore
-      const nextIdx = typeof api.nextScrollSnap === 'function' ? api.nextScrollSnap() : undefined
-      if (typeof nextIdx === 'number' && nextIdx >= 0) {
-        api.scrollTo(nextIdx)
-        return
-      }
-
-      const idx = api.selectedScrollSnap()
-      const snaps = (api.scrollSnapList && api.scrollSnapList().length) || 0
-      if (typeof idx === 'number' && idx < snaps - 1) {
-        api.scrollTo(idx + 1)
-      } else {
-        api.scrollNext()
-      }
+      api.scrollNext()
     } catch (e) {
       api?.scrollNext()
     }
