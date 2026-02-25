@@ -3,7 +3,7 @@ import { Search, Wrench, LayoutList, DollarSign, Rocket, ArrowDown } from "lucid
 const learnings = [
   {
     icon: Search,
-    text: "Como identificar oportunidades online reais",
+    text: "Como identificar oportunidades online reais!!!",
   },
   {
     icon: Wrench,
