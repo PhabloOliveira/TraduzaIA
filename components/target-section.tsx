@@ -68,10 +68,10 @@ export function TargetSection() {
         <div className="mt-14 flex justify-center">
           <a
             href="#produto"
-            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-secondary-foreground"
+            className="flex flex-col items-center gap-2 py-3 text-muted-foreground transition-colors hover:text-secondary-foreground"
           >
             <span className="text-sm font-medium">{"Continuar"}</span>
-            <ArrowDown className="size-5 animate-bounce" />
+            <ArrowDown className="size-5 animate-bounce" aria-hidden="true" />
           </a>
         </div>
       </div>

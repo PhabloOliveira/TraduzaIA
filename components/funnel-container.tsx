@@ -6,6 +6,7 @@ import { HeroSection } from './hero-section'
 import { QuestionStep } from './question-step'
 import { TransitionStep } from './transition-step'
 import { VSLSection } from './vsl-section'
+import { DiagnosisStep } from './diagnosis-step'
 
 const questions = [
   {
@@ -20,37 +21,17 @@ const questions = [
   },
   {
     id: 2,
-    title: "Qual sua experiência com tecnologia e IA?",
+    title: "O que mais te impede de ter uma renda extra hoje, sendo bem honesto(a)?",
     options: [
-      "Nunca usei IA para trabalho",
-      "Já experimentei ChatGPT algumas vezes",
-      "Uso IA regularmente mas não profissionalmente",
-      "Já trabalho com IA mas quero aprender mais"
+      "Não sei por onde começar — parece complicado demais pra mim",
+      "Falta de tempo — minha rotina já está no limite",
+      "Medo de investir esforço e não ver retorno",
+      "Nunca encontrei um caminho claro e confiável para isso"
     ]
   },
   {
     id: 3,
-    title: "Quanto tempo pode dedicar por semana para aprender?",
-    options: [
-      "1-2 horas por semana",
-      "3-5 horas por semana",
-      "6-10 horas por semana",
-      "Mais de 10 horas por semana"
-    ]
-  },
-  {
-    id: 4,
-    title: "Qual é seu principal objetivo com uma renda extra?",
-    options: [
-      "Pagar dívidas e organizar as finanças",
-      "Ter mais liberdade financeira",
-      "Investir em sonhos pessoais",
-      "Criar uma reserva de emergência"
-    ]
-  },
-  {
-    id: 5,
-    title: "Se você pudesse gerar R$ 2.000 a R$ 5.000 extras por mês usando IA, o que isso mudaria na sua vida?",
+    title: "Se você gerasse R$ 2.000 a R$ 5.000 extras por mês com IA, o que mudaria PRIMEIRO na sua vida?",
     options: [
       "Finalmente teria a liberdade financeira que sempre sonhei",
       "Poderia parar de me preocupar com dinheiro no fim do mês",
@@ -83,52 +64,92 @@ const swipePower = (offset: number, velocity: number) => {
 }
 
 export function FunnelContainer() {
-  const { currentStep, nextStep, addAnswer } = useFunnelStore()
+  const { currentStep, nextStep, addAnswer, dynamicQuestions, computeDynamicContent } = useFunnelStore()
+
+  // ── Step offsets (calculados dinamicamente) ────────────────────────────────
+  // Steps 1–3   : perguntas principais
+  // Steps 4…3+N : perguntas dinâmicas  (N = dynamicQuestions.length)
+  // Step  4+N   : diagnóstico personalizado
+  // Step  5+N   : transição (loading)
+  // Step  6+N   : VSL
+  const DYNAMIC_START = 4
+  const DYNAMIC_END = 3 + dynamicQuestions.length          // inclusive
+  const DIAGNOSIS_STEP = 4 + dynamicQuestions.length
+  const TRANSITION_STEP = 5 + dynamicQuestions.length
+  const VSL_STEP = 6 + dynamicQuestions.length
 
   const handleAnswer = (questionId: number, answer: string, questionTitle: string) => {
-    // Save answer to store
-    addAnswer({ 
-      question: questionTitle, 
-      answer, 
-      stepId: questionId 
-    })
-    
-    // Auto-advance to next step
-    setTimeout(() => {
-      nextStep()
-    }, 500) // Small delay for better UX
-  }
+    addAnswer({ question: questionTitle, answer, stepId: questionId })
 
-  const getStepComponent = () => {
-    switch (currentStep) {
-      case 0:
-        return <HeroSection />
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-        const question = questions[currentStep - 1]
-        return (
-          <QuestionStep
-            question={question.title}
-            options={question.options}
-            onAnswer={(answer) => handleAnswer(question.id, answer, question.title)}
-            stepNumber={currentStep}
-            totalSteps={5}
-          />
-        )
-      case 6:
-        return <TransitionStep />
-      case 7:
-        return <VSLSection />
-      default:
-        return <HeroSection />
+    if (questionId === 3) {
+      // Após a Q3: computa perguntas dinâmicas + diagnóstico antes de avançar
+      setTimeout(() => {
+        computeDynamicContent()
+        nextStep()
+      }, 500)
+    } else {
+      setTimeout(() => nextStep(), 500)
     }
   }
 
+  const getStepComponent = () => {
+    // ── Hero ──────────────────────────────────────────────────────────────────
+    if (currentStep === 0) {
+      return <HeroSection />
+    }
+
+    // ── Perguntas principais (1–3) ────────────────────────────────────────────
+    if (currentStep >= 1 && currentStep <= 3) {
+      const question = questions[currentStep - 1]
+      return (
+        <QuestionStep
+          question={question.title}
+          options={question.options}
+          onAnswer={(answer) => handleAnswer(question.id, answer, question.title)}
+          stepNumber={currentStep}
+          totalSteps={3}
+        />
+      )
+    }
+
+    // ── Perguntas dinâmicas (6…5+N) ───────────────────────────────────────────
+    if (currentStep >= DYNAMIC_START && currentStep <= DYNAMIC_END) {
+      const dynIndex = currentStep - DYNAMIC_START          // 0, 1, 2…
+      const dynQuestion = dynamicQuestions[dynIndex]
+      if (!dynQuestion) return <TransitionStep />           // safety fallback
+
+      return (
+        <QuestionStep
+          question={dynQuestion.title}
+          options={dynQuestion.options}
+          onAnswer={(answer) => handleAnswer(currentStep, answer, dynQuestion.title)}
+          stepNumber={dynIndex + 1}
+          totalSteps={dynamicQuestions.length}
+          sectionLabel="Complementar"
+        />
+      )
+    }
+
+    // ── Diagnóstico personalizado ─────────────────────────────────────────────
+    if (currentStep === DIAGNOSIS_STEP) {
+      return <DiagnosisStep />
+    }
+
+    // ── Transição (loading) ───────────────────────────────────────────────────
+    if (currentStep === TRANSITION_STEP) {
+      return <TransitionStep />
+    }
+
+    // ── VSL / Oferta ──────────────────────────────────────────────────────────
+    if (currentStep === VSL_STEP) {
+      return <VSLSection />
+    }
+
+    return <HeroSection />
+  }
+
   return (
-    <div className="md:min-h-screen">
+    <div className="min-h-dvh">
       <AnimatePresence mode="wait" custom={1}>
         <motion.div
           key={currentStep}

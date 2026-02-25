@@ -13,6 +13,8 @@ interface QuestionStepProps {
   onAnswer: (answer: string) => void
   stepNumber: number
   totalSteps: number
+  /** Rótulo da seção exibido na barra de progresso (ex: "Complementar"). Padrão: "Pergunta" */
+  sectionLabel?: string
 }
 
 export function QuestionStep({ 
@@ -20,24 +22,30 @@ export function QuestionStep({
   options, 
   onAnswer, 
   stepNumber, 
-  totalSteps 
+  totalSteps,
+  sectionLabel = 'Pergunta',
 }: QuestionStepProps) {
   const progress = (stepNumber / totalSteps) * 100
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 py-20 flex items-center">
+    <section
+      className="min-h-dvh bg-gradient-to-br from-primary/5 to-accent/5 py-20 flex items-center"
+    >
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 w-full">
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-muted-foreground">
-              Pergunta {stepNumber} de {totalSteps}
+              {sectionLabel} {stepNumber} de {totalSteps}
             </span>
             <span className="text-sm font-medium text-muted-foreground">
               {Math.round(progress)}%
             </span>
           </div>
-          <Progress value={progress} className="h-2" />
+          <Progress
+            value={progress}
+            className="h-2"
+          />
         </div>
 
         {/* Question Title */}
@@ -46,7 +54,9 @@ export function QuestionStep({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-serif text-center text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl text-balance mb-12">
+          <h2
+            className="font-serif text-center text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl text-balance mb-12"
+          >
             {question}
           </h2>
         </motion.div>
@@ -77,7 +87,9 @@ export function QuestionStep({
                     <span className="text-lg font-medium text-card-foreground pr-4">
                       {option}
                     </span>
-                    <CheckCircle className="size-6 text-accent opacity-0 group-hover:opacity-100 group-focus:opacity-100 focus-within:opacity-100 active:opacity-100 transition-opacity" />
+                    <CheckCircle
+                      className="size-6 text-accent opacity-0 group-hover:opacity-100 group-focus:opacity-100 focus-within:opacity-100 active:opacity-100 transition-opacity"
+                    />
                   </div>
                 </CardContent>
               </MotionCard>

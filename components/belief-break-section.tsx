@@ -36,7 +36,7 @@ export function BeliefBreakSection() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-3">
+        <div className="mt-14 grid gap-8 md:grid-cols-3">
           {points.map((point, index) => (
             <div
               key={index}
@@ -58,10 +58,10 @@ export function BeliefBreakSection() {
         <div className="mt-14 flex justify-center">
           <a
             href="#oportunidade"
-            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-secondary-foreground"
+            className="flex flex-col items-center gap-2 py-3 text-muted-foreground transition-colors hover:text-secondary-foreground"
           >
             <span className="text-sm font-medium">{"Continuar"}</span>
-            <ArrowDown className="size-5 animate-bounce" />
+            <ArrowDown className="size-5 animate-bounce" aria-hidden="true" />
           </a>
         </div>
       </div>

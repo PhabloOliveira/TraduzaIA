@@ -44,7 +44,7 @@ export function FinalOfferSection() {
             className="mt-8 h-14 w-full rounded-xl bg-accent px-8 text-base font-semibold text-accent-foreground shadow-lg transition-transform hover:scale-105 hover:bg-accent/90"
             asChild
           >
-            <a href="#" className="flex items-center justify-center gap-2">
+            <a href="https://pay.kiwify.com.br/QCOOz5u" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
               {"Quero Começar Agora"}
               <ArrowRight className="size-5" />
             </a>

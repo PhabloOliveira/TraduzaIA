@@ -49,47 +49,27 @@ export const funnelContent = {
       title: "Qual é sua situação profissional atual?",
       options: [
         "Trabalho CLT e quero uma renda extra",
-        "Sou autônomo/freelancer", 
+        "Sou autônomo/freelancer",
         "Tenho um negócio próprio",
         "Estou desempregado(a)"
       ]
     },
     {
       id: 2,
-      title: "Qual sua experiência com tecnologia e IA?",
+      title: "O que mais te impede de ter uma renda extra hoje, sendo bem honesto(a)?",
       options: [
-        "Nunca usei IA para trabalho",
-        "Já experimentei ChatGPT algumas vezes",
-        "Uso IA regularmente mas não profissionalmente", 
-        "Já trabalho com IA mas quero aprender mais"
+        "Não sei por onde começar — parece complicado demais pra mim",
+        "Falta de tempo — minha rotina já está no limite",
+        "Medo de investir esforço e não ver retorno",
+        "Nunca encontrei um caminho claro e confiável para isso"
       ]
     },
     {
       id: 3,
-      title: "Quanto tempo pode dedicar por semana para aprender?",
-      options: [
-        "1-2 horas por semana",
-        "3-5 horas por semana",
-        "6-10 horas por semana",
-        "Mais de 10 horas por semana"
-      ]
-    },
-    {
-      id: 4,
-      title: "Qual é seu principal objetivo com uma renda extra?",
-      options: [
-        "Pagar dívidas e organizar as finanças",
-        "Ter mais liberdade financeira",
-        "Investir em sonhos pessoais",
-        "Criar uma reserva de emergência"
-      ]
-    },
-    {
-      id: 5,
-      title: "Se você pudesse gerar R$ 2.000 a R$ 5.000 extras por mês usando IA, o que isso mudaria na sua vida?",
+      title: "Se você gerasse R$ 2.000 a R$ 5.000 extras por mês com IA, o que mudaria PRIMEIRO na sua vida?",
       options: [
         "Finalmente teria a liberdade financeira que sempre sonhei",
-        "Poderia parar de me preocupar com dinheiro no fim do mês", 
+        "Poderia parar de me preocupar com dinheiro no fim do mês",
         "Realizaria sonhos que estão parados por falta de grana",
         "Teria segurança para tomar decisões sem medo financeiro"
       ]

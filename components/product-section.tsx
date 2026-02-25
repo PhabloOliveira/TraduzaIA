@@ -21,7 +21,7 @@ export function ProductSection() {
                 alt="Guia Tradutor de IA - eBook em formato PDF"
                 width={320}
                 height={400}
-                className="relative h-auto w-full max-w-[320px] rounded-2xl shadow-xl"
+                className="relative h-auto w-full max-w-xs rounded-2xl shadow-xl"
               />
             </div>
           </div>
@@ -59,10 +59,10 @@ export function ProductSection() {
         <div className="mt-14 flex justify-center">
           <a
             href="#faq"
-            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="flex flex-col items-center gap-2 py-3 text-muted-foreground transition-colors hover:text-foreground"
           >
             <span className="text-sm font-medium">{"Continuar"}</span>
-            <ArrowDown className="size-5 animate-bounce" />
+            <ArrowDown className="size-5 animate-bounce" aria-hidden="true" />
           </a>
         </div>
       </div>
