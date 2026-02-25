@@ -6,6 +6,7 @@ import { HeroSection } from './hero-section'
 import { QuestionStep } from './question-step'
 import { TransitionStep } from './transition-step'
 import { VSLSection } from './vsl-section'
+import { DiagnosisStep } from './diagnosis-step'
 
 const questions = [
   {
@@ -83,48 +84,88 @@ const swipePower = (offset: number, velocity: number) => {
 }
 
 export function FunnelContainer() {
-  const { currentStep, nextStep, addAnswer } = useFunnelStore()
+  const { currentStep, nextStep, addAnswer, dynamicQuestions, computeDynamicContent } = useFunnelStore()
+
+  // ── Step offsets (calculados dinamicamente) ────────────────────────────────
+  // Steps 1–5   : perguntas principais
+  // Steps 6…5+N : perguntas dinâmicas  (N = dynamicQuestions.length)
+  // Step  6+N   : diagnóstico personalizado
+  // Step  7+N   : transição (loading)
+  // Step  8+N   : VSL
+  const DYNAMIC_START = 6
+  const DYNAMIC_END = 5 + dynamicQuestions.length          // inclusive
+  const DIAGNOSIS_STEP = 6 + dynamicQuestions.length
+  const TRANSITION_STEP = 7 + dynamicQuestions.length
+  const VSL_STEP = 8 + dynamicQuestions.length
 
   const handleAnswer = (questionId: number, answer: string, questionTitle: string) => {
-    // Save answer to store
-    addAnswer({ 
-      question: questionTitle, 
-      answer, 
-      stepId: questionId 
-    })
-    
-    // Auto-advance to next step
-    setTimeout(() => {
-      nextStep()
-    }, 500) // Small delay for better UX
+    addAnswer({ question: questionTitle, answer, stepId: questionId })
+
+    if (questionId === 5) {
+      // Após a Q5: computa perguntas dinâmicas + diagnóstico antes de avançar
+      setTimeout(() => {
+        computeDynamicContent()
+        nextStep()
+      }, 500)
+    } else {
+      setTimeout(() => nextStep(), 500)
+    }
   }
 
   const getStepComponent = () => {
-    switch (currentStep) {
-      case 0:
-        return <HeroSection />
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-        const question = questions[currentStep - 1]
-        return (
-          <QuestionStep
-            question={question.title}
-            options={question.options}
-            onAnswer={(answer) => handleAnswer(question.id, answer, question.title)}
-            stepNumber={currentStep}
-            totalSteps={5}
-          />
-        )
-      case 6:
-        return <TransitionStep />
-      case 7:
-        return <VSLSection />
-      default:
-        return <HeroSection />
+    // ── Hero ──────────────────────────────────────────────────────────────────
+    if (currentStep === 0) {
+      return <HeroSection />
     }
+
+    // ── Perguntas principais (1–5) ────────────────────────────────────────────
+    if (currentStep >= 1 && currentStep <= 5) {
+      const question = questions[currentStep - 1]
+      return (
+        <QuestionStep
+          question={question.title}
+          options={question.options}
+          onAnswer={(answer) => handleAnswer(question.id, answer, question.title)}
+          stepNumber={currentStep}
+          totalSteps={5}
+        />
+      )
+    }
+
+    // ── Perguntas dinâmicas (6…5+N) ───────────────────────────────────────────
+    if (currentStep >= DYNAMIC_START && currentStep <= DYNAMIC_END) {
+      const dynIndex = currentStep - DYNAMIC_START          // 0, 1, 2…
+      const dynQuestion = dynamicQuestions[dynIndex]
+      if (!dynQuestion) return <TransitionStep />           // safety fallback
+
+      return (
+        <QuestionStep
+          question={dynQuestion.title}
+          options={dynQuestion.options}
+          onAnswer={(answer) => handleAnswer(currentStep, answer, dynQuestion.title)}
+          stepNumber={dynIndex + 1}
+          totalSteps={dynamicQuestions.length}
+          sectionLabel="Complementar"
+        />
+      )
+    }
+
+    // ── Diagnóstico personalizado ─────────────────────────────────────────────
+    if (currentStep === DIAGNOSIS_STEP) {
+      return <DiagnosisStep />
+    }
+
+    // ── Transição (loading) ───────────────────────────────────────────────────
+    if (currentStep === TRANSITION_STEP) {
+      return <TransitionStep />
+    }
+
+    // ── VSL / Oferta ──────────────────────────────────────────────────────────
+    if (currentStep === VSL_STEP) {
+      return <VSLSection />
+    }
+
+    return <HeroSection />
   }
 
   return (

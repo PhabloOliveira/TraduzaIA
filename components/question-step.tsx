@@ -13,6 +13,8 @@ interface QuestionStepProps {
   onAnswer: (answer: string) => void
   stepNumber: number
   totalSteps: number
+  /** Rótulo da seção exibido na barra de progresso (ex: "Complementar"). Padrão: "Pergunta" */
+  sectionLabel?: string
 }
 
 export function QuestionStep({ 
@@ -20,7 +22,8 @@ export function QuestionStep({
   options, 
   onAnswer, 
   stepNumber, 
-  totalSteps 
+  totalSteps,
+  sectionLabel = 'Pergunta',
 }: QuestionStepProps) {
   const progress = (stepNumber / totalSteps) * 100
 
@@ -33,7 +36,7 @@ export function QuestionStep({
         <div className="mb-8">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-muted-foreground">
-              Pergunta {stepNumber} de {totalSteps}
+              {sectionLabel} {stepNumber} de {totalSteps}
             </span>
             <span className="text-sm font-medium text-muted-foreground">
               {Math.round(progress)}%

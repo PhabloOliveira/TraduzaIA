@@ -1,4 +1,10 @@
 import { create } from 'zustand'
+import {
+  DynamicQuestion,
+  DiagnosisConfig,
+  computeDynamicQuestions,
+  generateDiagnosis,
+} from '../config/dynamic-questions'
 
 export interface Answer {
   question: string
@@ -10,6 +16,16 @@ export interface FunnelState {
   currentStep: number
   answers: Answer[]
   isLoading: boolean
+  /** Perguntas dinâmicas calculadas após Q5 ser respondida */
+  dynamicQuestions: DynamicQuestion[]
+  /** Diagnóstico personalizado gerado com base em todas as respostas */
+  diagnosis: DiagnosisConfig | null
+  /**
+   * Último step do funil (calculado dinamicamente).
+   * 0: Hero | 1-5: Perguntas principais | 6…6+N-1: Perguntas dinâmicas
+   * 6+N: Diagnóstico | 6+N+1: Transição | 6+N+2: VSL
+   */
+  maxStep: number
   userProfile: {
     industry: string
     experience: string
@@ -25,20 +41,24 @@ export interface FunnelActions {
   addAnswer: (answer: Answer) => void
   setLoading: (loading: boolean) => void
   updateProfile: (key: keyof FunnelState['userProfile'], value: string) => void
+  /** Computa perguntas dinâmicas e diagnóstico com base nas respostas atuais */
+  computeDynamicContent: () => void
   resetFunnel: () => void
 }
 
 const initialState: FunnelState = {
-  currentStep: 0, // 0: Hero, 1-5: Questions, 6: Transition, 7: VSL
+  currentStep: 0, // 0: Hero, 1-5: Questions principais, 6+: dinâmicas/diagnóstico/VSL
   answers: [],
   isLoading: false,
+  dynamicQuestions: [],
+  diagnosis: null,
+  maxStep: 8, // mínimo: 5 perguntas + 0 dinâmicas + diagnóstico + transição + VSL
   userProfile: {
     industry: '',
     experience: '',
     goals: '',
-    timeAvailable: ''
-  }
-  
+    timeAvailable: '',
+  },
 }
 
 export const useFunnelStore = create<FunnelState & FunnelActions>((set, get) => ({
@@ -49,8 +69,8 @@ export const useFunnelStore = create<FunnelState & FunnelActions>((set, get) => 
   },
   
   nextStep: () => {
-    const { currentStep } = get()
-    set({ currentStep: Math.min(currentStep + 1, 7) })
+    const { currentStep, maxStep } = get()
+    set({ currentStep: Math.min(currentStep + 1, maxStep) })
   },
   
   previousStep: () => {
@@ -71,6 +91,20 @@ export const useFunnelStore = create<FunnelState & FunnelActions>((set, get) => 
       // Add new answer
       set({ answers: [...answers, answer] })
     }
+  },
+
+  computeDynamicContent: () => {
+    const { answers } = get()
+    const mapped = answers
+      .filter((a) => a.stepId >= 1 && a.stepId <= 5)
+      .map((a) => ({ questionId: a.stepId, answer: a.answer }))
+
+    const dynamicQuestions = computeDynamicQuestions(mapped)
+    const diagnosis = generateDiagnosis(mapped)
+    // 5 principais + N dinâmicas + diagnóstico + transição + VSL
+    const maxStep = 5 + dynamicQuestions.length + 3
+
+    set({ dynamicQuestions, diagnosis, maxStep })
   },
   
   setLoading: (loading: boolean) => {
