@@ -21,37 +21,17 @@ const questions = [
   },
   {
     id: 2,
-    title: "Qual sua experiência com tecnologia e IA?",
+    title: "O que mais te impede de ter uma renda extra hoje, sendo bem honesto(a)?",
     options: [
-      "Nunca usei IA para trabalho",
-      "Já experimentei ChatGPT algumas vezes",
-      "Uso IA regularmente mas não profissionalmente",
-      "Já trabalho com IA mas quero aprender mais"
+      "Não sei por onde começar — parece complicado demais pra mim",
+      "Falta de tempo — minha rotina já está no limite",
+      "Medo de investir esforço e não ver retorno",
+      "Nunca encontrei um caminho claro e confiável para isso"
     ]
   },
   {
     id: 3,
-    title: "Quanto tempo pode dedicar por semana para aprender?",
-    options: [
-      "1-2 horas por semana",
-      "3-5 horas por semana",
-      "6-10 horas por semana",
-      "Mais de 10 horas por semana"
-    ]
-  },
-  {
-    id: 4,
-    title: "Qual é seu principal objetivo com uma renda extra?",
-    options: [
-      "Pagar dívidas e organizar as finanças",
-      "Ter mais liberdade financeira",
-      "Investir em sonhos pessoais",
-      "Criar uma reserva de emergência"
-    ]
-  },
-  {
-    id: 5,
-    title: "Se você pudesse gerar R$ 2.000 a R$ 5.000 extras por mês usando IA, o que isso mudaria na sua vida?",
+    title: "Se você gerasse R$ 2.000 a R$ 5.000 extras por mês com IA, o que mudaria PRIMEIRO na sua vida?",
     options: [
       "Finalmente teria a liberdade financeira que sempre sonhei",
       "Poderia parar de me preocupar com dinheiro no fim do mês",
@@ -87,22 +67,22 @@ export function FunnelContainer() {
   const { currentStep, nextStep, addAnswer, dynamicQuestions, computeDynamicContent } = useFunnelStore()
 
   // ── Step offsets (calculados dinamicamente) ────────────────────────────────
-  // Steps 1–5   : perguntas principais
-  // Steps 6…5+N : perguntas dinâmicas  (N = dynamicQuestions.length)
-  // Step  6+N   : diagnóstico personalizado
-  // Step  7+N   : transição (loading)
-  // Step  8+N   : VSL
-  const DYNAMIC_START = 6
-  const DYNAMIC_END = 5 + dynamicQuestions.length          // inclusive
-  const DIAGNOSIS_STEP = 6 + dynamicQuestions.length
-  const TRANSITION_STEP = 7 + dynamicQuestions.length
-  const VSL_STEP = 8 + dynamicQuestions.length
+  // Steps 1–3   : perguntas principais
+  // Steps 4…3+N : perguntas dinâmicas  (N = dynamicQuestions.length)
+  // Step  4+N   : diagnóstico personalizado
+  // Step  5+N   : transição (loading)
+  // Step  6+N   : VSL
+  const DYNAMIC_START = 4
+  const DYNAMIC_END = 3 + dynamicQuestions.length          // inclusive
+  const DIAGNOSIS_STEP = 4 + dynamicQuestions.length
+  const TRANSITION_STEP = 5 + dynamicQuestions.length
+  const VSL_STEP = 6 + dynamicQuestions.length
 
   const handleAnswer = (questionId: number, answer: string, questionTitle: string) => {
     addAnswer({ question: questionTitle, answer, stepId: questionId })
 
-    if (questionId === 5) {
-      // Após a Q5: computa perguntas dinâmicas + diagnóstico antes de avançar
+    if (questionId === 3) {
+      // Após a Q3: computa perguntas dinâmicas + diagnóstico antes de avançar
       setTimeout(() => {
         computeDynamicContent()
         nextStep()
@@ -118,8 +98,8 @@ export function FunnelContainer() {
       return <HeroSection />
     }
 
-    // ── Perguntas principais (1–5) ────────────────────────────────────────────
-    if (currentStep >= 1 && currentStep <= 5) {
+    // ── Perguntas principais (1–3) ────────────────────────────────────────────
+    if (currentStep >= 1 && currentStep <= 3) {
       const question = questions[currentStep - 1]
       return (
         <QuestionStep
@@ -127,7 +107,7 @@ export function FunnelContainer() {
           options={question.options}
           onAnswer={(answer) => handleAnswer(question.id, answer, question.title)}
           stepNumber={currentStep}
-          totalSteps={5}
+          totalSteps={3}
         />
       )
     }

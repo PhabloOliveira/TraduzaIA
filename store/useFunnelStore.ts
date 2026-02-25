@@ -52,7 +52,7 @@ const initialState: FunnelState = {
   isLoading: false,
   dynamicQuestions: [],
   diagnosis: null,
-  maxStep: 8, // mínimo: 5 perguntas + 0 dinâmicas + diagnóstico + transição + VSL
+  maxStep: 6, // mínimo: 3 perguntas + 0 dinâmicas + diagnóstico + transição + VSL
   userProfile: {
     industry: '',
     experience: '',
@@ -101,8 +101,8 @@ export const useFunnelStore = create<FunnelState & FunnelActions>((set, get) => 
 
     const dynamicQuestions = computeDynamicQuestions(mapped)
     const diagnosis = generateDiagnosis(mapped)
-    // 5 principais + N dinâmicas + diagnóstico + transição + VSL
-    const maxStep = 5 + dynamicQuestions.length + 3
+    // 3 principais + N dinâmicas + diagnóstico + transição + VSL
+    const maxStep = 3 + dynamicQuestions.length + 3
 
     set({ dynamicQuestions, diagnosis, maxStep })
   },
