@@ -8,7 +8,7 @@ export function HeroSection() {
   const { hero } = funnelContent
   
   return (
-    <section className="relative overflow-x-hidden bg-primary py-20 lg:py-32 min-h-screen">
+    <section className="relative overflow-x-hidden bg-primary py-20 lg:py-32 min-h-dvh">
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5">
         <div

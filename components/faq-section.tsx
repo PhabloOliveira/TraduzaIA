@@ -45,7 +45,7 @@ export function FaqSection() {
   return (
     <section id="faq" className="bg-secondary py-20 lg:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h2 className="font-serif text-center text-2xl font-bold text-secondary-foreground sm:text-3xl text-balance">
+        <h2 className="font-serif text-center text-2xl font-bold text-secondary-foreground sm:text-3xl lg:text-4xl text-balance">
           {"Perguntas Frequentes"}
         </h2>
 
@@ -71,10 +71,10 @@ export function FaqSection() {
         <div className="mt-14 flex justify-center">
           <a
             href="#garantia"
-            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-secondary-foreground"
+            className="flex flex-col items-center gap-2 py-3 text-muted-foreground transition-colors hover:text-secondary-foreground"
           >
             <span className="text-sm font-medium">{"Continuar"}</span>
-            <ArrowDown className="size-5 animate-bounce" />
+            <ArrowDown className="size-5 animate-bounce" aria-hidden="true" />
           </a>
         </div>
       </div>
