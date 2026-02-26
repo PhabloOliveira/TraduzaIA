@@ -41,10 +41,10 @@ export function VSLSection() {
   }, [])
 
   const benefits = [
-    "Acesso às 20+ prompts exclusivos de IA",
-    "Método passo-a-passo comprovado",
-    "Bônus: Acesso as ferramentas de IA para começar",
-    "Garantia incondicional de 7 dias"
+    "20+ prompts prontos que fazem o trabalho pesado por você — só copiar e aplicar",
+    "Passo a passo validado por centenas de alunos — sem enrolação, sem jargão técnico",
+    "Bônus: as ferramentas exatas que usamos para gerar resultados reais desde o primeiro dia",
+    "Risco zero: 7 dias de garantia total — se não gostar, devolvemos cada centavo sem perguntas"
   ]
 
   const socialProof = [
@@ -115,13 +115,13 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
           className="text-center mb-12"
         >
           <Badge className="mb-4 bg-accent/10 text-accent border-accent/20">
-            🎯 Estratégia Personalizada Pronta
+            🎯 Feito Exclusivamente Para o Seu Perfil
           </Badge>
           <h1 className="font-serif text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl text-balance mb-4">
-            Sua Jornada para Gerar Renda com IA Começa Aqui
+            Você Chegou Onde a Maioria Nunca Tem Coragem de Chegar
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Baseado nas suas respostas, preparamos um método exclusivo para você começar hoje mesmo
+            Com base nas suas respostas, identificamos o caminho mais direto para mudar sua realidade financeira. Assista ao vídeo abaixo — ele foi preparado para pessoas exatamente no seu momento.
           </p>
         </motion.div>
 
@@ -152,11 +152,11 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                 {/* Fake video thumbnail text */}
                 <div className="absolute bottom-3 left-3 right-3 text-white max-w-full sm:max-w-[60%]">
                   <h3 className="font-semibold text-sm sm:text-lg mb-1 leading-tight">
-                    Como Transformar IA em Renda Real
+                    Como Gerar Renda Real com IA — Mesmo Começando do Zero
                   </h3>
                   <div className="flex items-center gap-2 text-xs sm:text-sm opacity-80">
                     <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span>15:30 min</span>
+                    <span>Assista até o final — os últimos minutos são os mais importantes</span>
                   </div>
                 </div>
               </div>
@@ -199,13 +199,13 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                 <div className="text-center mb-6">
                   <Badge className="mb-3 bg-accent text-accent-foreground">
                     <Gift className="w-4 h-4 mr-2" />
-                    Oferta Especial - Só Hoje
+                    Acesso Liberado — Apenas Hoje
                   </Badge>
                   <h2 className="font-serif text-2xl font-bold mb-2">
                     Guia Tradutor de IA™
                   </h2>
                   <p className="text-muted-foreground">
-                    Método completo para gerar renda com IA
+                    O método mais direto para transformar IA em renda consistente — sem precisar ser tech
                   </p>
                 </div>
 
@@ -222,7 +222,7 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                     <span className="font-serif text-4xl sm:text-5xl font-bold text-primary">R$ 67</span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Pagamento único • Acesso imediato
+                    Pagamento único • Acesso imediato • Sem mensalidade
                   </p>
                 </div>
 
@@ -244,7 +244,7 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
 
                 {/* Testimonials carousel */}
                 <div className="mb-6">
-                  <h3 className="font-semibold text-lg mb-3 text-center">Depoimentos de alunos</h3>
+                  <h3 className="font-semibold text-lg mb-3 text-center">Quem aplicou o método, mudou de vida:</h3>
                     <div className="relative">
                       <Carousel setApi={setCarouselApi} className="max-w-full">
                         {/* show side arrows close to the carousel on mobile and further out on desktop */}
@@ -308,7 +308,7 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
 
                       <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                         <Shield className="w-4 h-4" />
-                        <span>Garantia incondicional de 7 dias</span>
+                        <span>Risco zero: 7 dias de garantia total — sem perguntas, sem burocracia</span>
                       </div>
                     </motion.div>
                   )}
@@ -322,7 +322,7 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                     className="text-center text-sm text-muted-foreground"
                   >
                     <Clock className="w-4 h-4 inline mr-2" />
-                    Botão aparecerá em alguns segundos...
+                    Assista ao vídeo — sua oferta exclusiva será liberada em instantes
                   </motion.div>
                 )}
               </CardContent>
