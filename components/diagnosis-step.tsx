@@ -59,7 +59,7 @@ export function DiagnosisStep() {
           {/* Headline */}
           <motion.div variants={itemVariants} className="text-center">
             <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
-              Análise concluída
+              ✦ Seu diagnóstico está pronto
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground text-balance leading-tight">
               {diagnosis.headline}
@@ -71,9 +71,14 @@ export function DiagnosisStep() {
             variants={itemVariants}
             className="w-full rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm"
           >
-            <p className="text-base sm:text-lg text-card-foreground leading-relaxed">
-              {diagnosis.message}
-            </p>
+            {diagnosis.message.split('\n\n').map((paragraph, i) => (
+              <p
+                key={i}
+                className={`text-base sm:text-lg text-card-foreground leading-relaxed${i > 0 ? ' mt-4' : ''}`}
+              >
+                {paragraph}
+              </p>
+            ))}
           </motion.div>
 
           {/* Destaque emocional */}
@@ -104,7 +109,7 @@ export function DiagnosisStep() {
             variants={itemVariants}
             className="text-xs text-muted-foreground text-center"
           >
-            Diagnóstico gerado exclusivamente com base nas suas respostas
+            🔒 Análise feita com base exclusiva nas suas respostas — preparada só para você
           </motion.p>
         </motion.div>
       </div>

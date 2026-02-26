@@ -165,56 +165,65 @@ export function generateDiagnosis(answers: AnswerMap[]): DiagnosisConfig {
   const q2 = getAnswer(2) // barreira principal
   const q3 = getAnswer(3) // aspiração / impacto emocional
 
-  // ── Perfil (Q1) ──
-  let profileLabel = "pessoa determinada"
+  // ── Headline + Perfil (Q1) ──
+  let headline = "Seu diagnóstico está pronto — e ele foi feito para você"
   let profileInsight = ""
 
   if (q1 === "Trabalho CLT e quero uma renda extra") {
-    profileLabel = "trabalhador(a) CLT"
+    headline = "Você foi feito(a) para mais do que um salário que nunca muda por conta própria"
     profileInsight =
-      "Você tem a estabilidade do emprego, mas está preso(a) a um teto que outros controlam. A IA pode ser sua saída paralela — sem abrir mão do que já tem."
+      "Todo dia você acorda, se dedica e entrega o seu melhor — mas o teto do seu salário é decidido por alguém que nem sabe o seu nome. Isso não é falta de competência. É falta de uma fonte de renda que responda ao SEU esforço, e não ao humor de um chefe. A IA é exatamente essa saída paralela — e você pode construir ela sem abrir mão do que já tem."
   } else if (q1 === "Sou autônomo/freelancer") {
-    profileLabel = "profissional autônomo(a)"
+    headline = "Você tem tudo para crescer — o que falta é a alavanca que quebra o teto"
     profileInsight =
-      "Você já tem o espírito empreendedor — o que falta é escalar sem trocar mais tempo por dinheiro. A IA é a alavanca que vai multiplicar o que você já faz."
+      "Você já deu o passo que a maioria nunca vai dar. Mas percebeu que existe uma armadilha invisível no seu modelo: cada real extra exige mais uma hora sua. Você está chegando no limite do que é possível vender sozinho(a). A IA é a alavanca que vai multiplicar o que você já faz — sem exigir mais horas, sem exaurir mais energia."
   } else if (q1 === "Tenho um negócio próprio") {
-    profileLabel = "empreendedor(a)"
+    headline = "Seu negócio pode crescer sem consumir mais da sua vida"
     profileInsight =
-      "Você já construiu algo, mas está no limite da sua capacidade operacional. Com IA, você pode automatizar, crescer e finalmente trabalhar no negócio — e não dentro dele."
+      "Você criou o negócio para ter liberdade — e em algum momento percebeu que criou a maior fonte de pressão da sua vida. Sem você, nada funciona. Você é o gargalo. Com IA, você sai do operacional, automatiza o que te consome e finalmente trabalha no negócio — não dentro dele. Isso não é futuro: está acontecendo agora."
   } else if (q1 === "Estou desempregado(a)") {
-    profileLabel = "pessoa em transição de carreira"
+    headline = "O mercado fechou as portas erradas para você — a certa está aqui"
     profileInsight =
-      "Estar em transição não é fraqueza — é a oportunidade perfeita para começar com a habilidade mais valorizada do mercado. Você pode entrar no jogo agora, antes de todo mundo."
+      "O mercado de empregos tradicional está cada vez mais ingrato, lento e seletivo. Mas aqui está o que ninguém te conta: as pessoas que mais estão faturando hoje não foram contratadas — elas criaram seus próprios caminhos. Quase todas usando IA. Você chegou aqui no momento exato para fazer o mesmo, antes que esse janelo se feche."
   }
 
   // ── Barreira (Q2) ──
-  let barrierText = "algo ainda trava sua evolução financeira"
+  let barrierText = "algo ainda trava sua evolução financeira — mas esse obstáculo tem solução"
   if (q2.includes("por onde começar")) {
-    barrierText = "a falta de um caminho claro é o que mais trava você hoje — e isso vai mudar agora"
+    barrierText =
+      "a falta de um ponto de partida claro é o que te travou até hoje. Não é falta de vontade. É falta de direção. Isso muda agora"
   } else if (q2.includes("tempo")) {
-    barrierText = "a rotina intensa te impede de agir, mesmo querendo muito — e o método se encaixa nisso"
+    barrierText =
+      "sua rotina não deixa espaço sobrando — e o método foi desenhado exatamente para funcionar nas brechas do seu dia, sem virar sua vida de ponta cabeça"
   } else if (q2.includes("medo")) {
-    barrierText = "o medo de não ter retorno te paralisa — e é exatamente isso que vou eliminar pra você"
+    barrierText =
+      "o medo de se esforçar e não ver retorno ainda pesa. Você já tentou coisas que não funcionaram, e a cicatriz ainda dói. Mas desta vez os resultados de quem já fez isso falam mais alto que qualquer insegurança"
   } else if (q2.includes("caminho")) {
-    barrierText = "você nunca encontrou um método confiável de verdade — até agora"
+    barrierText =
+      "você pesquisou, tentou, ficou em dúvida — e nenhuma opção pareceu feita para você de verdade. Até este momento"
   }
 
   // ── Gancho emocional (Q3) ──
-  let hook = "A mudança que você busca está a um passo de distância. Veja o que preparei para você."
+  let hook =
+    "A mudança que você busca está a um passo de distância. O próximo passo é seu — e ele começa agora."
   if (q3.includes("liberdade financeira")) {
-    hook = "A liberdade que você sempre quis está mais próxima do que parece. O próximo passo é seu."
+    hook =
+      "Você já imaginou essa liberdade tantas vezes que sabe exatamente como ela seria. Já visualizou os detalhes. O que falta agora não é mais imaginação — é ação. E o primeiro passo real está aqui."
   } else if (q3.includes("preocupar com dinheiro")) {
-    hook = "Imagine fechar o mês sem aquela angústia financeira. Esse cenário é real — e está ao seu alcance."
+    hook =
+      "Imagine fechar o mês sem torcer para as contas fecharem no positivo. Sem aquela pressão constante no peito, sem aquela ansiedade toda vez que o app do banco abre. Esse cenário é completamente real — e está ao seu alcance agora."
   } else if (q3.includes("sonhos")) {
-    hook = "Seus sonhos não precisam mais esperar. A solução que faltava está a um passo de você."
+    hook =
+      "Cada sonho tem um prazo de validade. Quanto mais você espera, mais caro fica não agir — e mais distante ele parece. A solução que faltava para mudar isso está a um passo daqui."
   } else if (q3.includes("segurança")) {
-    hook = "A segurança financeira que você merece está mais perto do que imagina."
+    hook =
+      "Você merece tomar decisões sem o peso financeiro pressionando cada escolha. Merece dormir sem essa angústia. Essa segurança não é um luxo — é o que está esperando por você do outro lado desse passo."
   }
 
   return {
-    headline: `Diagnóstico concluído, ${profileLabel}!`,
-    message: `${profileInsight} Ficou claro que ${barrierText}.`,
+    headline,
+    message: `${profileInsight}\n\nFicou claro que ${barrierText}.`,
     highlight: hook,
-    cta: "Ver minha solução personalizada →",
+    cta: "Quero ver minha solução personalizada agora",
   }
 }
