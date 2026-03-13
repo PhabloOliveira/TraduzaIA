@@ -4,14 +4,11 @@ import { useState, useEffect } from 'react'
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import { Badge } from "./ui/badge"
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import {
-  Play,
   ArrowRight,
-  ArrowLeft,
   CheckCircle,
   Star,
-  Clock,
   Shield,
   Zap,
   Gift
@@ -28,17 +25,6 @@ import {
 // removed unused imports
 
 export function VSLSection() {
-  const [showCTA, setShowCTA] = useState(false)
-  const [videoWatched, setVideoWatched] = useState(false)
-
-  useEffect(() => {
-    // Show CTA after 10 seconds (simulate video watching)
-    const timer = setTimeout(() => {
-      setShowCTA(true)
-    }, 10000)
-
-    return () => clearTimeout(timer)
-  }, [])
 
   const benefits = [
     "20+ prompts prontos que fazem o trabalho pesado por você — só copiar e aplicar",
@@ -121,76 +107,37 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
             Você Chegou Onde a Maioria Nunca Tem Coragem de Chegar
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Com base nas suas respostas, identificamos o caminho mais direto para mudar sua realidade financeira. Assista ao vídeo abaixo — ele foi preparado para pessoas exatamente no seu momento.
+            Com base nas suas respostas, identificamos o caminho mais direto para mudar sua realidade financeira. Veja abaixo a oportunidade que preparamos para pessoas exatamente no seu momento.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 items-start">
-
-          {/* Video Section */}
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.55, delay: 0.15 }}
-            className="w-full"
-          >
-            <div className="relative w-full">
-              {/* Video Placeholder (responsive) */}
-              <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black/80 aspect-video shadow-md sm:shadow-2xl relative group cursor-pointer">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setVideoWatched(true)}
-                    className="w-14 h-14 sm:w-20 sm:h-20 bg-accent rounded-full flex items-center justify-center text-accent-foreground shadow-lg"
-                  >
-                    <Play className="w-5 h-5 sm:w-8 sm:h-8" />
-                  </motion.button>
-                </div>
-
-                {/* Fake video thumbnail text */}
-                <div className="absolute bottom-3 left-3 right-3 text-white max-w-full sm:max-w-[60%]">
-                  <h3 className="font-semibold text-sm sm:text-lg mb-1 leading-tight">
-                    Como Gerar Renda Real com IA — Mesmo Começando do Zero
-                  </h3>
-                  <div className="flex items-center gap-2 text-xs sm:text-sm opacity-80">
-                    <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span>Assista até o final — os últimos minutos são os mais importantes</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social Proof Cards (stacked on mobile) */}
-              <div className="mt-4 space-y-3 sm:mt-6">
-                {socialProof.map((proof, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 + index * 0.12 }}
-                    className="flex items-center gap-3 bg-card p-3 rounded-lg border"
-                  >
-                    <div className="flex text-yellow-500">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
-                      ))}
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">{proof.name}</p>
-                      <p className="text-xs text-muted-foreground">{proof.result}</p>
-                    </div>
-                  </motion.div>
+        {/* Social Proof Cards */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-10 max-w-3xl mx-auto">
+          {socialProof.map((proof, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 + index * 0.1 }}
+              className="flex flex-col items-center gap-1 bg-card p-3 rounded-lg border text-center"
+            >
+              <div className="flex text-yellow-500">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
                 ))}
               </div>
-            </div>
-          </motion.div>
+              <p className="font-medium text-sm">{proof.name}</p>
+              <p className="text-xs text-muted-foreground">{proof.result}</p>
+            </motion.div>
+          ))}
+        </div>
 
+        <div className="max-w-2xl mx-auto">
           {/* Offer Section */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
             <Card className="border-2 border-accent/20 shadow-lg sm:shadow-2xl">
               <CardContent className="p-6 sm:p-8">
@@ -270,61 +217,45 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
                 </div>
 
                 {/* CTA Button */}
-                <AnimatePresence>
-                  {showCTA && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="space-y-4"
-                    >
-                      <motion.div
-                        animate={{
-                          scale: [1, 1.02, 1],
-                          boxShadow: [
-                            "0 0 0 0 rgba(var(--accent), 0.4)",
-                            "0 0 0 15px rgba(var(--accent), 0)",
-                            "0 0 0 0 rgba(var(--accent), 0)"
-                          ]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        <Button
-                          asChild
-                          size="lg"
-                          className="w-full h-12 sm:h-16 text-base sm:text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 px-4 whitespace-normal"
-                        >
-                          <a href="https://pay.kiwify.com.br/QCOOz5u" target="_blank" rel="noopener noreferrer">
-                            <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
-                            <span className="text-center">QUERO MEU ACESSO AGORA</span>
-                            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                          </a>
-                        </Button>
-                      </motion.div>
-
-                      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                        <Shield className="w-4 h-4" />
-                        <span>Risco zero: 7 dias de garantia total — sem perguntas, sem burocracia</span>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Countdown Timer (Optional) */}
-                {!showCTA && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="space-y-4"
+                >
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center text-sm text-muted-foreground"
+                    animate={{
+                      scale: [1, 1.02, 1],
+                      boxShadow: [
+                        "0 0 0 0 rgba(var(--accent), 0.4)",
+                        "0 0 0 15px rgba(var(--accent), 0)",
+                        "0 0 0 0 rgba(var(--accent), 0)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
                   >
-                    <Clock className="w-4 h-4 inline mr-2" />
-                    Assista ao vídeo — sua oferta exclusiva será liberada em instantes
+                    <Button
+                      asChild
+                      size="lg"
+                      className="w-full h-12 sm:h-16 text-base sm:text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 px-4 whitespace-normal"
+                    >
+                      <a href="https://pay.kiwify.com.br/QCOOz5u" target="_blank" rel="noopener noreferrer">
+                        <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
+                        <span className="text-center">QUERO MEU ACESSO AGORA</span>
+                        <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </a>
+                    </Button>
                   </motion.div>
-                )}
+
+                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <Shield className="w-4 h-4" />
+                    <span>Risco zero: 7 dias de garantia total — sem perguntas, sem burocracia</span>
+                  </div>
+                </motion.div>
               </CardContent>
             </Card>
           </motion.div>
