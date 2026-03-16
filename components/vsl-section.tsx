@@ -260,6 +260,15 @@ Em menos de duas semanas fechei meus primeiros clientes. O que mais me surpreend
             </Card>
           </motion.div>
         </div>
+
+        <div className="mt-10 text-center">
+          <p className="mx-auto max-w-4xl text-xs leading-relaxed text-muted-foreground opacity-80">
+            Os resultados apresentados nesta página são individuais e não garantem que
+            você terá os mesmos resultados. Os ganhos dependem do esforço, dedicação e
+            aplicação de cada pessoa. Este produto é educacional e não constitui
+            promessa de renda.
+          </p>
+        </div>
       </div>
     </section>
   )
