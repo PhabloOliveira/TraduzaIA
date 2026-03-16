@@ -14,7 +14,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'Guia Tradutor de IA - Crie Renda Extra com Inteligência Artificial',
+  title: 'Renda inteligente com IA - Crie Renda Extra com Inteligência Artificial',
   description:
     'Descubra como usar Inteligência Artificial para prestar serviços digitais simples e abrir uma nova fonte de renda — mesmo começando do zero.',
   icons: {
